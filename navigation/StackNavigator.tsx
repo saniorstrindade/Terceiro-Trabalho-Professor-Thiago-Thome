@@ -4,7 +4,7 @@ import { AddPetScreen } from '../view/AddPetScreen';
 
 export type StackParamList = {
   Home: undefined;
-  AddPet: { nome: string }; // recebe o nome digitado
+  AddPet: undefined;
 };
 
 const Stack = createNativeStackNavigator<StackParamList>();
@@ -12,8 +12,26 @@ const Stack = createNativeStackNavigator<StackParamList>();
 export function StackNavigator() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Meus Pets' }} />
-      <Stack.Screen name="AddPet" component={AddPetScreen} options={{ title: 'Lista de Pets' }} />
+      <Stack.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          title: 'Adicionar Pet',
+          headerStyle: { backgroundColor: '#007bff' },
+          headerTintColor: '#fff',
+          headerTitleStyle: { fontWeight: 'bold' },
+        }}
+      />
+      <Stack.Screen
+        name="AddPet"
+        component={AddPetScreen}
+        options={{
+          title: 'Lista de Pets',
+          headerStyle: { backgroundColor: '#007bff' },
+          headerTintColor: '#fff',
+          headerTitleStyle: { fontWeight: 'bold' },
+        }}
+      />
     </Stack.Navigator>
   );
 }

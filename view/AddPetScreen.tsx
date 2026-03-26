@@ -1,47 +1,37 @@
-import { View, Text, FlatList, Button, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { StackParamList } from '../navigation/StackNavigator';
+import React from 'react';
+import {
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+} from 'react-native';
 import { usePetController } from '../controllers/PetControllers';
-
-type NavProp = NativeStackNavigationProp<StackParamList, 'AddPet'>;
+import { styles } from '../styles/styles';
 
 export function AddPetScreen() {
-  const navigation = useNavigation<NavProp>();
-
-  // ✅ Hook no lugar certo
   const { pets, deletarPet } = usePetController();
 
   return (
     <View style={styles.container}>
-      <FlatList
-        data={pets}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
-          <View style={styles.item}>
-            <Text style={styles.nome}>{item.nome}</Text>
-
-            <Button
-              title="Excluir"
-              onPress={() => deletarPet(item.id)}
-            />
-          </View>
-        )}
-      />
-
-      <Button title="Voltar" onPress={() => navigation.goBack()} />
+      {pets.length === 0 ? (
+        <Text style={styles.semPets}>Nenhum pet cadastrado ainda 🐾</Text>
+      ) : (
+        <FlatList
+          data={pets}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => (
+            <View style={styles.item}>
+              <Text style={styles.nomePet}>{item.nome}</Text>
+              <TouchableOpacity
+                style={styles.botaoExcluir}
+                onPress={() => deletarPet(item.id)}
+              >
+                <Text style={styles.botaoTexto}>Excluir</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+        />
+      )}
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20 },
-  item: {
-    padding: 14,
-    backgroundColor: '#fff',
-    borderRadius: 8,
-    marginBottom: 10,
-    elevation: 2,
-  },
-  nome: { fontSize: 16 },
-});
