@@ -1,19 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
-import PetView from './view/PetView';
+import {NavigationContainer, useNavigation} from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { StackNavigator } from './navigation/StackNavigator';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <PetView />
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <StackNavigator/>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-});
