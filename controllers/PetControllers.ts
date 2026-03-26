@@ -1,12 +1,15 @@
 import { Pet } from "../models/Pet"
 import PetServices from "../services/PetServices"
 import { useState, useEffect } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
+import { useCallback } from 'react';
 export const usePetController = () => {
     const [pets, setPets] = useState<Pet[]>([]);//estado para armazenar a lista de pets
-    useEffect(() => {//vai carregar a lista de pets quando o componente for montado
-        const lista = PetServices.getAllPet();
-        setPets(lista);
-     }, []);
+     useFocusEffect(
+    useCallback(() => {
+      setPets([...PetServices.getAllPet()]);
+    }, [])
+  );
      const addPet = (nome: string) => {//função para adicionar um novo pet, recebendo o nome do pet como parâmetro
         PetServices.addPet(nome);
         setPets(PetServices.getAllPet());
