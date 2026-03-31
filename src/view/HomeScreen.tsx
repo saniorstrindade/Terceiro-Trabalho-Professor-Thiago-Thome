@@ -41,7 +41,7 @@ export function HomeScreen() {
   return (
     <View style={{ flex: 1 }}>
       <ImageBackground
-        source={require('../assets/pets.jpg')}
+        source={require('../../assets/pets.jpg')}
         style={styles.topoImagem}
         resizeMode="cover"
       />
